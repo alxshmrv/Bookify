@@ -1,5 +1,6 @@
 ﻿using Bookify.Domain.Abstractions;
 using Bookify.Domain.Apartments.Enums;
+using Bookify.Domain.Apartments.Events;
 using Bookify.Domain.Apartments.ValueObjects;
 using Bookify.Domain.Shared;
 
@@ -7,7 +8,7 @@ namespace Bookify.Domain.Apartments;
 
 public sealed class Apartment : Entity
 {
-    public Apartment(
+    private Apartment(
         Guid id,
         Name name,
         Description description,
@@ -37,4 +38,26 @@ public sealed class Apartment : Entity
     public DateTime? LastTimeBookedOnUtc { get; internal set; }
     
     public List<Amenity> Amenities { get; private set; } = new List<Amenity>();
+
+    public static Result<Apartment> Create(
+        Name name,
+        Description description,
+        Address address,
+        Money price,
+        Money cleaningFee,
+        List<Amenity> amenities)
+    {
+        var apartment = new Apartment(
+            Guid.NewGuid(),
+            name,
+            description,
+            address,
+            price,
+            cleaningFee,
+            amenities);
+        
+        apartment.RaiseDomainEvent(new ApartmentCreatedDomainEvent(apartment.Id));
+        
+        return apartment;
+    }
 }

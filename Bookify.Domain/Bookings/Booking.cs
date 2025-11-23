@@ -58,7 +58,7 @@ public sealed class Booking : Entity
      
      public DateTime? CancelledOnUtc { get; private set; }
 
-     public static Booking Reserve(
+     public static Result<Booking> Reserve(
          Apartment apartment,
          Guid userId,
          DateRange duration,

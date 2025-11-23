@@ -1,4 +1,6 @@
-﻿namespace Bookify.Domain.Bookings.ValueObjects;
+﻿using Bookify.Domain.Abstractions;
+
+namespace Bookify.Domain.Bookings.ValueObjects;
 
 public record DateRange
 {
@@ -12,11 +14,11 @@ public record DateRange
     
     public int LengthInDays => End.DayNumber - Start.DayNumber;
 
-    public static DateRange Create(DateOnly start, DateOnly end)
+    public static Result<DateRange> Create(DateOnly start, DateOnly end)
     {
         if (start > end)
         {
-            throw new ApplicationException("End date precedes start date");
+            return Result.Failure<DateRange>(new Error("DateRange.Error", "Start must be before end"));
         }
 
         return new DateRange
