@@ -1,6 +1,5 @@
 ﻿using Bookify.Domain.Abstractions;
 using Bookify.Domain.Apartments;
-using Bookify.Domain.Apartments.ValueObjects;
 using Bookify.Domain.Bookings.Enums;
 using Bookify.Domain.Bookings.Events;
 using Bookify.Domain.Bookings.Services;
