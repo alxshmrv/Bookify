@@ -1,0 +1,40 @@
+﻿networks:
+  bookify:
+    driver: bridge
+    
+services:
+  bookify-webapi:
+    image: webapi
+    build:
+      context: ./
+      dockerfile: Bookify.WebApi/Dockerfile
+    ports:
+      - 5001:8080 
+    env_file: .env
+    environment:
+      - ConnectionStrings__Database=Server=bookify-db;Port=5432;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};IncludeErrorDetail=true
+    networks:
+      - bookify
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:latest
+    env_file: .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ${POSTGRES_DATA_PATH}:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - bookify
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
