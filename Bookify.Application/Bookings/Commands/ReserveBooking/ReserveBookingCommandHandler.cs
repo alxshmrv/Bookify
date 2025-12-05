@@ -11,7 +11,7 @@ using Bookify.Domain.Bookings.ValueObjects;
 using Bookify.Domain.Users;
 using Bookify.Domain.Users.Validation;
 
-namespace Bookify.Application.Bookings.ReserveBooking;
+namespace Bookify.Application.Bookings.Commands.ReserveBooking;
 
 internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBookingCommand, Guid>
 {

@@ -16,4 +16,10 @@
       <ProjectReference Include="..\Bookify.Domain\Bookify.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Apartments\Queries\" />
+      <Folder Include="Bookings\Commands\" />
+      <Folder Include="Bookings\Queries\" />
+    </ItemGroup>
+
 </Project>

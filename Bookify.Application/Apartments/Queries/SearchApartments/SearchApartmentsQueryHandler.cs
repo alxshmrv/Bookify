@@ -1,13 +1,14 @@
 ﻿using Bookify.Application.Abstractions.Data;
 using Bookify.Application.Abstractions.Messaging;
+using Bookify.Application.Apartments.Dtos;
 using Bookify.Domain.Abstractions;
 using Bookify.Domain.Bookings.Enums;
 using Dapper;
 
-namespace Bookify.Application.Apartments.SearchApartments;
+namespace Bookify.Application.Apartments.Queries.SearchApartments;
 
 internal sealed class SearchApartmentsQueryHandler
-    : IQueryHandler<SearchApartmentsQuery, IReadOnlyList<ApartmentResponse>>
+    : IQueryHandler<SearchApartments.SearchApartmentsQuery, IReadOnlyList<ApartmentResponseDto>>
 {
     private static readonly int[] ActiveBookingStatuses =
     [
@@ -23,11 +24,11 @@ internal sealed class SearchApartmentsQueryHandler
         _sqlConnectionFactory = sqlConnectionFactory;
     }
 
-    public async Task<Result<IReadOnlyList<ApartmentResponse>>> Handle(SearchApartmentsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IReadOnlyList<ApartmentResponseDto>>> Handle(SearchApartments.SearchApartmentsQuery request, CancellationToken cancellationToken)
     {
         if (request.StartDate > request.EndDate)
         {
-            return new List<ApartmentResponse>();
+            return new List<ApartmentResponseDto>();
         }
         
         using var connection = _sqlConnectionFactory.CreateConnection();
@@ -58,7 +59,7 @@ internal sealed class SearchApartmentsQueryHandler
                            """;
 
         var apartments = await connection
-            .QueryAsync<ApartmentResponse, AddressResponse, ApartmentResponse>(
+            .QueryAsync<ApartmentResponseDto, AddressResponseDto, ApartmentResponseDto>(
                 sql,
                 (apartment, address) =>
                 {

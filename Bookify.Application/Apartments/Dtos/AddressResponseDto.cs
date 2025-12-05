@@ -1,6 +1,6 @@
-﻿namespace Bookify.Application.Apartments.SearchApartments;
+﻿namespace Bookify.Application.Apartments.Dtos;
 
-public class AddressResponse
+public class AddressResponseDto
 {
     public string Country { get; init; }
     

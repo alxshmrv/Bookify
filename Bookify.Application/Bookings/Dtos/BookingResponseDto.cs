@@ -1,6 +1,6 @@
-﻿namespace Bookify.Application.Bookings.GetBooking;
+﻿namespace Bookify.Application.Bookings.Dtos;
 
-public sealed class BookingResponse
+public sealed class BookingResponseDto
 {
     public Guid Id { get; init; }
     
