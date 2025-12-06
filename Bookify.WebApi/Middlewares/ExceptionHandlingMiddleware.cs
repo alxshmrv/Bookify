@@ -1,4 +1,5 @@
-﻿using Bookify.Application.Exceptions;
+﻿/*
+using Bookify.Application.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.WebApi.Middlewares;
@@ -73,3 +74,4 @@ internal sealed class ExceptionHandlingMiddleware
         string Detail,
         IEnumerable<object>? Errors);
 }
+*/

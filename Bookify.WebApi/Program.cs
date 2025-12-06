@@ -1,9 +1,11 @@
 using Bookify.Application;
 using Bookify.Infrastructure;
-using Microsoft.AspNetCore.Diagnostics;
+using Bookify.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -21,7 +23,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseExceptionHandler();
 app.MapControllers();
 
 app.Run();
