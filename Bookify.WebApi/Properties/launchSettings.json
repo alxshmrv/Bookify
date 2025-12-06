@@ -9,7 +9,7 @@
       "applicationUrl": "https://localhost:5002;http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConnectionStrings__Database": "Server=localhost;Port=5432;Database=bookify;User Id=postgres;Password=postgres;IncludeErrorDetail=true"
+        "ConnectionStrings__Database": "Server=localhost;Port=5435;Database=bookify;User Id=postgres;Password=postgres;IncludeErrorDetail=true"
       }
     }
   }
