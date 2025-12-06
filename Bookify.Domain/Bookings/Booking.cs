@@ -30,6 +30,10 @@ public sealed class Booking : Entity
         AmenitiesUpCharge = amenitiesUpCharge;
         TotalPrice = totalPrice;
     }
+
+    private Booking()
+    {
+    }
     
      public Guid ApartmentId { get; private set; }
      
