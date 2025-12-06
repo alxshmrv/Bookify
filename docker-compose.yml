@@ -16,10 +16,10 @@ services:
     networks:
       - bookify
     depends_on:
-      db:
+      bookify-db:
         condition: service_healthy
 
-  db:
+  bookify-db:
     image: postgres:latest
     env_file: .env
     environment:
@@ -30,7 +30,7 @@ services:
     volumes:
       - ${POSTGRES_DATA_PATH}:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 5435:5432
     networks:
       - bookify
     healthcheck:
