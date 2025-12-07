@@ -9,7 +9,7 @@ services:
       context: ./
       dockerfile: Bookify.WebApi/Dockerfile
     ports:
-      - 5001:8080 
+      - 5001:8080
     env_file: .env
     environment:
       - ConnectionStrings__Database=Server=bookify-db;Port=5432;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};IncludeErrorDetail=true
@@ -38,3 +38,18 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+      
+  bookify-idp:
+    image: keycloak/keycloak:latest
+    command: start-dev --import-realm
+    env_file: .env
+    environment:
+      - KEYCLOAK_ADMIN=${KEYCLOAK_USER}
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_PASSWORD}
+    volumes:
+      - ./.containers/identity:/opt/keycloak/data/
+      - ./.files/${REALM_EXPORT_FILE}:/opt/keycloak/data/import/realm.json
+    ports:
+      - 18080:8080
+    networks:
+      - bookify    

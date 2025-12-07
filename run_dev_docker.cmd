@@ -28,8 +28,4 @@ echo.
 :: Показываем статус запущенных контейнеров
 docker-compose ps
 
-echo.
-echo App is available at: http://localhost:5001
-echo Database is at:      localhost:5432
-echo.
 pause
