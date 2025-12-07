@@ -13,6 +13,10 @@ services:
     env_file: .env
     environment:
       - ConnectionStrings__Database=Server=bookify-db;Port=5432;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};IncludeErrorDetail=true
+      - Authentication__Audience=${AUDIENCE},
+      - Authentication__ValidIssuer=${VALID_ISSUER},
+      - Authentication__MetadataUrl=${METADATA_URL},
+      - Authentication__RequireHttpsMetadata=${HTTPS}
     networks:
       - bookify
     depends_on:
