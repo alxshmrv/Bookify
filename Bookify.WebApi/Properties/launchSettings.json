@@ -13,12 +13,12 @@
         "ConnectionStrings__Database": "Server=localhost;Port=5435;Database=bookify_db;User Id=postgres;Password=postgres;IncludeErrorDetail=true",
         
         "Authentication__Audience": "account",
-        "Authentication__ValidIssuer": "http://bookify-idp:8080/realms/bookify",
-        "Authentication__MetadataUrl": "http://bookify-idp:8080/realms/bookify/.well-known/openid-configuration",
+        "Authentication__ValidIssuer": "http://localhost:18080/realms/bookify",
+        "Authentication__MetadataUrl": "http://localhost:18080/realms/bookify/.well-known/openid-configuration",
         "Authentication__RequireHttpsMetadata": "false",
         
-        "Keycloak__AdminUrl": "http://bookify-idp:8080/admin/realms/bookify",
-        "Keycloak__TokenUrl": "http://bookify-idp:8080/realms/bookify/protocol/openid-connect/token",
+        "Keycloak__AdminUrl": "http://localhost:18080/admin/realms/bookify/",
+        "Keycloak__TokenUrl": "http://localhost:18080/realms/bookify/protocol/openid-connect/token",
         "Keycloak__AdminClientId": "bookify-admin-client", 
         "Keycloak__AdminClientSecret": "UZDmbNxWmV4TlpaCRcju6pMRsyuV3er1", 
         "Keycloak__AuthClientId": "bookify-auth-client", 

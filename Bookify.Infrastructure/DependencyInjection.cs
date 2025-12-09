@@ -43,12 +43,17 @@ public static class DependencyInjection
         services.AddTransient<AdminAuthorizationDelegatingHandler>();
         
         services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
-        {
-            var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
-
-            httpClient.BaseAddress = new Uri(keycloakOptions.AdminUrl);
-        })
-        .AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
+            {
+                var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+                httpClient.BaseAddress = new Uri(keycloakOptions.AdminUrl);
+            })
+            .AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>()
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                UseProxy = false,
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
+            }); // для локальной разработки игнор сертефикатов и прокси
 
         return services;
     }

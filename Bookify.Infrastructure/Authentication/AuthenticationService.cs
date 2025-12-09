@@ -7,11 +7,11 @@ namespace Bookify.Infrastructure.Authentication;
 
 public class AuthenticationService : IAuthenticationService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly HttpClient _httpClient;
 
-    public AuthenticationService(IHttpClientFactory httpClientFactory)
+    public AuthenticationService(HttpClient httpClient)
     {
-        _httpClientFactory = httpClientFactory;
+        _httpClient = httpClient;
     }
 
     public async Task<string> RegisterAsync(
@@ -31,9 +31,7 @@ public class AuthenticationService : IAuthenticationService
             }
         };
         
-        var httpClient = _httpClientFactory.CreateClient();
-        
-        var response = await httpClient.PostAsJsonAsync(
+        var response = await _httpClient.PostAsJsonAsync(
             "users",
             userRepresentationModel,
             cancellationToken);

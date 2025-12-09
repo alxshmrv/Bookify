@@ -13,10 +13,16 @@ services:
     env_file: .env
     environment:
       - ConnectionStrings__Database=Server=bookify-db;Port=5432;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};IncludeErrorDetail=true
-      - Authentication__Audience=${AUDIENCE},
-      - Authentication__ValidIssuer=${VALID_ISSUER},
-      - Authentication__MetadataUrl=${METADATA_URL},
+      - Authentication__Audience=${AUDIENCE}
+      - Authentication__ValidIssuer=${VALID_ISSUER}
+      - Authentication__MetadataUrl=${METADATA_URL}
       - Authentication__RequireHttpsMetadata=${HTTPS}
+      - Keycloak__AdminUrl=http://bookify-idp:8080/admin/realms/bookify/
+      - Keycloak__TokenUrl=http://bookify-idp:8080/realms/bookify/protocol/openid-connect/token
+      - Keycloak__AdminClientId=bookify-admin-client
+      - Keycloak__AdminClientSecret=UZDmbNxWmV4TlpaCRcju6pMRsyuV3er1
+      - Keycloak__AuthClientId=bookify-auth-client
+      - Keycloak__AuthClientSecret=3E3yvXaYppoYBF3Ir6DgtEzADKKzSurZ
     networks:
       - bookify
     depends_on:
