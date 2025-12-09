@@ -38,7 +38,9 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
         _dateTimeProvider = dateTimeProvider;
     }
 
-    public async Task<Result<Guid>> Handle(ReserveBookingCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(
+        ReserveBookingCommand request,
+        CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
 

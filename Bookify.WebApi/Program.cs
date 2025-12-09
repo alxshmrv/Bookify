@@ -1,6 +1,6 @@
 using Bookify.Application;
 using Bookify.Infrastructure;
-using Bookify.WebApi.Middlewares;
+using Bookify.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 

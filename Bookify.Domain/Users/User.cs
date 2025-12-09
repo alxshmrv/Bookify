@@ -27,6 +27,8 @@ public sealed class User : Entity
     public LastName LastName { get; private set; }
     
     public Email Email { get; private set; }
+    
+    public string IdentityId { get; private set; } = string.Empty;
 
     public static Result<User> Create(FirstName firstName, LastName lastName, Email email)
     {
@@ -35,5 +37,10 @@ public sealed class User : Entity
         user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
         
         return user;
+    }
+
+    public void SetIdentityId(string identityId)
+    {
+        IdentityId = identityId;
     }
 }

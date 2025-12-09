@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bookify.WebApi.Middlewares;
+namespace Bookify.WebApi;
 
 internal sealed class GlobalExceptionHandler(
     IProblemDetailsService problemDetailsService,

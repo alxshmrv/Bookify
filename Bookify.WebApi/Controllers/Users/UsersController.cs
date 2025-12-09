@@ -1,0 +1,43 @@
+﻿using Bookify.Application.Users.Commands.RegisterUser;
+using Bookify.Application.Users.Dtos;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Bookify.WebApi.Controllers.Users;
+
+[Authorize]
+[ApiController]
+[Route("api/users")]
+public class UsersController : ControllerBase
+{
+    private readonly ISender _sender;
+
+    public UsersController(ISender sender)
+    {
+        _sender = sender;
+    }
+
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(
+        RegisterUserRequestDto request,
+        CancellationToken cancellationToken)
+    {
+        var command = new RegisterUserCommand(
+            request.Email,
+            request.FirstName,
+            request.LastName,
+            request.Password);
+        
+        var result = await _sender.Send(command, cancellationToken);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
+}
