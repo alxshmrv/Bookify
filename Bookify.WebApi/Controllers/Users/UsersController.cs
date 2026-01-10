@@ -1,6 +1,7 @@
 ﻿using Bookify.Application.Users.Commands.LoginUser;
 using Bookify.Application.Users.Commands.RegisterUser;
 using Bookify.Application.Users.Dtos;
+using Bookify.Application.Users.Queries.GetLoggedInUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -20,6 +21,16 @@ public class UsersController : ControllerBase
         _sender = sender;
     }
 
+    [HttpGet("me")]
+    public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
+    {
+        var query = new GetLoggedInUserQuery();
+        
+        var result = await _sender.Send(query, cancellationToken);
+        
+        return Ok(result.Value);
+    }
+    
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register(
