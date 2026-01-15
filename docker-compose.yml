@@ -63,3 +63,15 @@ services:
       - 18080:8080
     networks:
       - bookify    
+        
+  bookify-seq:
+    image: datalust/seq:latest
+    env_file: .env
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINPASSWORD=${SEQ_FIRSTRUN_ADMINPASSWORD}
+    ports:
+      - 5341:5341
+      - 8081:80
+    networks:
+      - bookify
