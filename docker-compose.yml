@@ -9,7 +9,7 @@ services:
       context: ./
       dockerfile: Bookify.WebApi/Dockerfile
     ports:
-      - 5001:8080
+      - '5001:8080'
     env_file: .env
     environment:
       - ConnectionStrings__Database=Server=bookify-db;Port=5432;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};IncludeErrorDetail=true
@@ -40,7 +40,7 @@ services:
     volumes:
       - ${POSTGRES_DATA_PATH}:/var/lib/postgresql/data
     ports:
-      - 5435:5432
+      - '5435:5432'
     networks:
       - bookify
     healthcheck:
@@ -60,7 +60,7 @@ services:
       - ./.containers/identity:/opt/keycloak/data/
       - ./.files/${REALM_EXPORT_FILE}:/opt/keycloak/data/import/realm.json
     ports:
-      - 18080:8080
+      - '18080:8080'
     networks:
       - bookify    
         
@@ -71,7 +71,13 @@ services:
       - ACCEPT_EULA=Y
       - SEQ_FIRSTRUN_ADMINPASSWORD=${SEQ_FIRSTRUN_ADMINPASSWORD}
     ports:
-      - 5341:5341
-      - 8081:80
+      - '5341:5341'
+      - '8081:80'
     networks:
       - bookify
+  
+  bookify-redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
