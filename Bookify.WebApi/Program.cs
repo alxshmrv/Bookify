@@ -1,6 +1,7 @@
 using Bookify.Application;
 using Bookify.Infrastructure;
 using Bookify.WebApi;
+using Bookify.WebApi.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRequestContextLogging();
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();
